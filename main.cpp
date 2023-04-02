@@ -1,248 +1,89 @@
-
 #include <iostream>
 
-#include <fstream>
-
-#include<cstring>
-#include<iomanip>
-
 using namespace std;
-
-void Accept_Data();
-
-void Search_Prisoner();
-
-void Detail_Info();
-void animation();
-
-void create();
-
-void Login(string,int);
-
+int add(int num1, int num2);
+int sub(int num1, int num2);
+int mul(int num1, int num2);
+int divi(int num1, int num2);
+void accept();
 void menu();
-;
-struct Prisoners
-{
-    char Name[20];
-    char Father_Name[20];
-    char Gender[5];
-    int ID_No;
-    int Age;
-    char Crime[10];
-    int Punishment_Duration;
-}p[100];
 int main()
 {
-    system("COLOR 3B")
- animation();
-  menu();
-  return 0;
+    accept(); // calling accept function
+
+    return 0;
 }
+void accept()
+{
+  int a,s,m,d,sum,dif,pro,quo;
+  int n1,n2;
+     cout<<"Enter two numbers:"<<endl;
+     cin>>n1>>n2;
+
+    char choice;
+    menu(); // calling menu function
+    cin>>choice;
+
+    while(choice!=0) // Enabling the program to run again again as much as the choice is different from 0
+    {
+    switch(choice) // Running the program for specific case
+    {
+    case 'a':
+      sum = add(n1,n2);
+     cout<<"The sum of the two numbers is "<<sum<<endl<<endl;
+      break;
+    case 's':
+     dif = sub(n1,n2);
+     cout<<"The difference of the two numbers is "<<dif<<endl<<endl;
+      break;
+    case 'm':
+     pro = mul(n1,n2);
+    cout<<"The product of the numbers is "<<pro<<endl<<endl;
+    break;
+  case 'd':
+      quo = divi(n1,n2);
+     cout<<"The quotient of the two numbers is "<<quo<<endl<<endl;
+     break;
+  default:
+    cout<<"sorry your choice is wrong,please try again!"<<endl<<endl;
+
+    }
+  menu(); // Recalling menu function in case the given choice is not provided on the menu!
+          //u can also use "Enter the your choice again" if u don wanna call menu again!
+  cin>>choice;
+    }
+}
+
+// Definitions of the functions
+int add(int num1, int num2)
+{
+    return num1+num2;
+}
+
+int sub(int num1, int num2)
+{
+    return num1-num2;
+}
+
+int mul(int num1, int num2)
+{
+    return num1*num2;
+}
+
+int divi(int num1, int num2)
+{
+    return num1/num2;
+}
+
 void menu()
 {
-  int a;
-  string x;
-  cout<<"Enter your choice from the menu below:"<<endl;
-  char choice;
-
-
-        cout << "\n\n\n";
-        cout << "\t\t\t\t---------------------------------------------------------------------------\n";
-
-        cout << "\t\t\t\t|                                                                         |\n";
-
-        cout << "\t\t\t\t|                     1)   Login                                          |\n";
-        cout << "\t\t\t\t|                                                                         |\n";
-
-        cout << "\t\t\t\t|                     2)   New prisoner entry                             |\n";
-        cout << "\t\t\t\t|                                                                         |\n";
-
-
-        cout << "\t\t\t\t|                     3)   Search prisoner                                |\n";
-        cout << "\t\t\t\t|                                                                         |\n";
-
-        cout << "\t\t\t\t|                     4)   Display Information of prisoners               |\n";
-        cout << "\t\t\t\t|                                                                         |\n";
-
-        cout << "\t\t\t\t|                     5)   Exit                                           |\n";
-        cout << "\t\t\t\t|                                                                         |\n";
-        cout << "\t\t\t\t---------------------------------------------------------------------------\n";
-  cin>>choice;
-  switch(choice)
-  {
-    case '1':  Login(x,a);
-
-    case '2':  Accept_Data();
-     break;
-    case '3':  Search_Prisoner();
-     break;
-    case '4':  Detail_Info();
-     break;
-    case '5':  exit(0);
-     break;
-    default:  cout<<"Sorry your choice is wrong please try again!"<<endl<<endl;
-   exit(1);
-   }
-   menu();
+    cout<<"   #############################################"<<endl;
+    cout<<"   #############################################"<<endl;
+    cout<<"   ###    press a to add two numbers         ###"<<endl;
+    cout<<"   ###    press s to subtract two numbers    ###"<<endl;
+    cout<<"   ###    press m to multiply two numbers    ###"<<endl;
+    cout<<"   ###    press d to divide two numbers      ###"<<endl;
+    cout<<"   #############################################"<<endl;
+    cout<<"   #############################################"<<endl;
 }
-void Accept_Data()
-{
- int n;
-  cout<<" Enter Number of prisoners:"<<endl;
-  cin>>n;
 
-  ofstream myFile;
-  myFile.open("Prisoners.txt",ios::out);
-
-  for(int i = 0; i < n; i++)
-  {
-
-
-      cout<<"Enter prisoner "<<i+1<<"'s first name:"<<endl;
-      cin>>p[i].Name;
-      cout<<"Enter prisoner "<<i+1<<"'s father name:"<<endl;
-      cin>>(p[i].Father_Name);
-      cout<<"Enter age of the prisoner:"<<endl;
-      cin>>p[i].Age;
-      cout<<"Enter gender of the prisoner:"<<endl;
-      cin>>p[i].Gender;
-      cout<<"Enter ID number of the prisoner:"<<endl;
-      cin>>p[i].ID_No;
-      cout<<"Enter crime type of the prisoner:"<<endl;
-      cin>>p[i].Crime;
-      cout<<"Enter duration of punishment year of the prisoner:"<<endl;
-      cin>>p[i].Punishment_Duration;
-
-      myFile<<p[i].Name<<" "<<p[i].Father_Name<<" "<<p[i].Age<<" "<<p[i].Gender<<" "<<p[i].ID_No<<" "<<p[i].Crime<<" "<<p[i].Punishment_Duration<<endl;
-  }
-  myFile.close();
-  menu();
-}
-void Search_Prisoner()
-{
-  int ID_No1;
-
-  cout<<"Enter the ID number of the prisoner you want to search:"<<endl;
-  cin>>ID_No1;
-   char Name[20];
-   char Father_Name[20];
-   char Gender[5];
-   int ID_No;
-   int Age;
-   char Crime[10];
-   int Punishment_Duration;
-
-    ifstream myFile;
-    myFile.open("prisoners.txt",ios::in);
-  if(myFile.fail())
-  {
-  cout<< "Input file opening failed.\n";
- exit(1);
- }
-
-while(myFile>>Name>>Father_Name>>Age>>Gender>>ID_No>>Crime>>Punishment_Duration)
-    {
-      if(ID_No1==ID_No)
-      {
-      cout<<Name<<" "<<Father_Name<<"   "<<Age<<"  "<<Gender<<"  "<<ID_No<<"  "<<Crime<<"  "<<Punishment_Duration<<endl;
-      }
-  else if(ID_No1!=ID_No){
-  cout<<"The person is not registered!"<<endl;
-    }
-  }
-  myFile.close();
-  menu();
-}
-void Detail_Info()
-{
-  int i;
-  char Name[20];
-  char Father_Name[20];
-  char Gender[5];
-  int ID_No;
-  int Age;
-  char Crime[10];
-  int Punishment_Duration;
-ifstream myFile;
-    myFile.open("Prisoners.txt",ios::in);
-    if(myFile.fail())
-  {
-  cout<< "Input file opening failed.\n";
- exit(1);
- }
-   cout<<"FIRST NAME"<<"     "<<"SECOND NAME"<<"     "<<"AGE" <<"     "<<"GENDER" <<"       " <<"ID No" <<"     "<<"CRIME" <<"     " <<"PUNISHMENT DURATION"<<endl;
-      while(myFile>>Name>>Father_Name>>Age>>Gender>>ID_No>>Crime>>Punishment_Duration)
-    {
-      cout<<setw(1)<<Name<<setw(20)<<Father_Name<<setw(10)<<Age<<" "<<setw(10)<<Gender<<" "<<setw(10)<<ID_No<<" "<<setw(10)<<Crime<<" "<<setw(10)<<Punishment_Duration<<endl;
-    }
-    //cout<<Name<<" "<<Father_Name<<"    "<<Age<<"      "<<Gender<<"         "<<ID_No<<"     "<<Crime<<"        "<<Punishment_Duration<<endl;
-
-  myFile.close();
-  menu();
-}
-void create(){
- int a;
- string x,username;
-
-  cout << "\t\t\t\t|                                                                       |\n";
-
-  cout << "\t\t\t\t|                        Create Username                                 |\n";
-  cout << "\t\t\t\t|                                                                        |\n";
- //cout <<" create username"<<endl;
- cin>>x;
- cout << "\t\t\t\t|                                                                         |\n";
-
-  cout << "\t\t\t\t|                        Create Password Only number is allowed        |\n";
-  cout << "\t\t\t\t|                                                                        |\n";
-// cout << "create pasword" <<endl;
- cin >>a;
-menu();
- }
-
-void Login(string x,int a){
-string username;
-int password;
-cout << "\t\t\t\t|                                                                         |\n";
-
-  cout << "\t\t\t\t|                        Enter Your Username                            |\n";
-  cout << "\t\t\t\t|                                                                       |\n";
- //cout <<"Enter username" ;
- cin>>username;
- cout << "\t\t\t\t|                                                                        |\n";
-
-  cout << "\t\t\t\t|                        Enter Your password only number is allowed     |\n";
-  cout << "\t\t\t\t|                                                                        |\n";
- //cout<<"Enter password only number is allowed" ;
- cin >>password;
- if (username==x && password==a)
- {
- }
-  else
-  {
-menu();
-} }
- void animation()
-  {
-    int a;
-         for (a = 0; a <= 100000000; a++)
-        {
-        }
-        cout << "\t\t\t\t    ----------------------------------------\n";
-        for (a = 0; a <= 100000000; a++)
-        {
-        }
-        cout << "\t\t\t\t    |         PRISON MANAGEMENT SYSTEM      |\n";
-    for (a = 0; a <= 100000000; a++)
-        {
-        }
-        cout << "\t\t\t\t    |         MODERN PRISON MANAGEMENT SYSTEM      |\n";
-
-        for (a = 0; a <= 100000000; a++)
-        {
-        }
-        cout << "\t\t\t\t    ----------------------------------------\n";
-        for (a = 0; a <= 100000000; a++)
-        {
-        }
-        create();
-    }
